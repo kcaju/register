@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testing/view/logout_screen/logout_screen.dart';
+import 'package:testing/view/login_screen/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LogoutScreen(),
+                  builder: (context) => LoginScreen(),
                 ),
                 (route) => false,
               );

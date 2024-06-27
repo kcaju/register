@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testing/dummy_db.dart';
 import 'package:testing/view/login_screen/login_screen.dart';
 
 class RegisterationScreen extends StatelessWidget {
@@ -108,13 +109,12 @@ class RegisterationScreen extends StatelessWidget {
                         backgroundColor: WidgetStatePropertyAll(Colors.blue)),
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
+                        DummyDb.email1 = emailkey.text;
+                        DummyDb.passwo = pass.text;
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginScreen(
-                                email: emailkey.text,
-                                password: pass.text,
-                              ),
+                              builder: (context) => LoginScreen(),
                             ));
                       }
                     },

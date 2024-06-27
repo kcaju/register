@@ -1,13 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:testing/dummy_db.dart';
 import 'package:testing/view/home_screen/home_screen.dart';
 import 'package:testing/view/registeration_screen/registeration_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key, this.email, this.password});
-  final String? email, password;
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailkey = TextEditingController();
+    TextEditingController passkey = TextEditingController();
     GlobalKey<FormState> formkey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(),
@@ -29,6 +33,7 @@ class LoginScreen extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                controller: emailkey,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Enter a valid Email";
@@ -48,6 +53,7 @@ class LoginScreen extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                controller: passkey,
                 validator: (value) {
                   if (value!.length >= 6) {
                     return null;
@@ -96,11 +102,20 @@ class LoginScreen extends StatelessWidget {
                         backgroundColor: WidgetStatePropertyAll(Colors.blue)),
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
-                        Navigator.push(
+                        if (emailkey.text == DummyDb.email1 &&
+                            DummyDb.passwo == passkey.text) {
+                          Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: (context) => HomeScreen(),
-                            ));
+                            ),
+                            (route) => false,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text("Invalid credentials")));
+                        }
                       }
                     },
                     child: Text(
